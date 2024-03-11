@@ -11,6 +11,9 @@ public class GameSceneScripts : MonoBehaviour
     public float tiempoTranscurrido;
     public TextMeshProUGUI textoTiempo;
 
+    public GameObject FeedbackPanel;
+    public TextMeshProUGUI FeedbackMessage;
+
     // Start is called before the first frame update
     public void ToMainMenu()
     {
@@ -54,5 +57,36 @@ public class GameSceneScripts : MonoBehaviour
         textoTiempo.text = "Fin";
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene("ResultsScreen");
+    }
+
+    public void InputButtonsAction()
+    {
+        FeedbackPanel.SetActive(true);
+        int inputValue = UnityEngine.Random.Range(0,4);
+        switch (inputValue)
+        {
+            case 0:
+                FeedbackMessage.text = "LATE";
+            break;
+
+            case 1:
+                FeedbackMessage.text = "OK";
+                break;
+
+            case 2:
+                FeedbackMessage.text = "GREAT";
+                break;
+
+            case 3:
+                FeedbackMessage.text = "AMAZING";
+                break;
+        }
+        StartCoroutine(HideButton());
+    }
+
+    private IEnumerator HideButton()
+    {
+        yield return new WaitForSeconds(0.75f);
+        FeedbackPanel.SetActive(false);
     }
 }
